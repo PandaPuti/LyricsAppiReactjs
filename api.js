@@ -1,0 +1,18 @@
+import axios from 'axios'
+
+const URL = 'https://api.lyrics.ovh/v1';
+
+export const searchLyrics = async (artist, title) => {
+  if(!artist || !title) {
+    return;
+  }
+
+  try {
+    const response = await axios.get(`${URL}/${artist}/${title}`);
+    console.log(response);
+    return {success: true, lyrics: response.data.lyrics};
+  } catch (error) {
+    console.error(error);
+    return {success: false, error: error?.message};
+  }
+}
